@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Админ-панель
+{% endblock %}
+
+{% block body %}
+  <main class="section admin-dashboard">
+    <h1><i class="icon"></i>Админ-панель</h1>
+    
+
+    <!-- Графики -->
+    <section class="charts-section">
+      <div class="chart-card">
+        <h3><i class="icon">📅</i> Заявки по месяцам</h3>
+        <canvas id="requestsChart"></canvas>
+      </div>
+      
+      <div class="chart-card">
+        <h3><i class="icon">🏷️</i> Статусы заявок</h3>
+        <canvas id="statusChart"></canvas>
+      </div>
+    </section>
+
+    <!-- Дополнительная аналитика -->
+    <section class="analytics-grid">
+      <div class="analytics-card">
+        <h3><i class="icon">🏢</i> Топ компаний</h3>
+        <ul class="top-list">
+          <li>
+            <span class="company-name">СтройГарант</span>
+            <span class="company-value">12 заявок</span>
+          </li>
+          <li>
+            <span class="company-name">АрхПроект</span>
+            <span class="company-value">9 заявок</span>
+          </li>
+          <li>
+            <span class="company-name">ТехноСтрой</span>
+            <span class="company-value">7 заявок</span>
+          </li>
+        </ul>
+      </div>
+      
+      <div class="analytics-card">
+        <h3><i class="icon">📆</i> Последние действия</h3>
+        <ul class="activity-log">
+          <li>
+            <span class="activity-time">10:30</span>
+            <span class="activity-text">Заявка #201 одобрена</span>
+          </li>
+          <li>
+            <span class="activity-time">09:45</span>
+            <span class="activity-text">Новый пользователь: Дмитрий И.</span>
+          </li>
+          <li>
+            <span class="activity-time">Вчера</span>
+            <span class="activity-text">Заявка #199 отклонена</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Таблица заявок -->
+    <section class="requests-section">
+      <div class="section-header">
+        <h2><i class="icon">📋</i> Последние заявки</h2>
+        <div class="filters">
+        <select id="statusFilter" onchange="filterRequests()">
+        <option value="all">Все статусы</option>
+        <option value="pending">Ожидание</option>
+        <option value="approved">Одобрено</option>
+        <option value="rejected">Отклонено</option>
+    </select>
+    <input type="text" placeholder="Поиск..." id="searchInput" oninput="filterRequests()">
+    </div>
+      </div>
+      
+      <div class="table-container">
+        <table id="requestsTable">
+          <thead>
+            <tr>
+              <th>ID <i class="sort-icon">↓↑</i></th>
+              <th>Компания <i class="sort-icon">↓↑</i></th>
+              <th>Бюджет <i class="sort-icon">↓↑</i></th>
+              <th>Срок <i class="sort-icon">↓↑</i></th>
+              <th>Статус</th>
+              <th>Действия</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Данные будут загружаться через JS -->
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="table-footer">
+        <div class="pagination">
+          <button class="page-btn">←</button>
+          <span class="page-number">1</span>
+          <button class="page-btn">→</button>
+        </div>
+        <div class="table-info">
+          Показано <span id="shownItems">1-10</span> из <span id="totalItems">24</span>
+        </div>
+      </div>
+    </section>
+  </main>
+{% endblock %}
+{% block footer %}
+{% endblock %}

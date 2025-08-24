@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}{% endblock %}</title>
+  <link type="text/css" href="{{ url_for('static', filename='styles.css')}}" rel="stylesheet" />
+  <script defer src="/static/script.js"></script>
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <div class="logo">Exon Build</div>
+      <ul class="nav-links">
+        <li><a href="{{ url_for('index') }}">Главная</a></li>
+        <li><a href="{{ url_for('about') }}">О нас</a></li>
+
+        {% if current_user.is_authenticated %}
+          <!-- Показываем для авторизованных пользователей -->
+          <li><a href="{{ url_for('submit') }}">Подать заявку</a></li>
+          <li><a href="{{ url_for('profile') }}">Личный кабинет</a></li>
+          {% if current_user.role == 'Администратор' %}
+            <li><a href="{{ url_for('admin') }}">Админ-панель</a></li>
+          {% endif %}
+          <li class="user-info">
+            <a href="{{ url_for('logout') }}" class="logout-btn">Выйти</a>
+          </li>
+        {% else %}
+          <!-- Показываем для неавторизованных пользователей -->
+          <li><a href="{{ url_for('auth') }}">Вход / Регистрация</a></li>
+        {% endif %}
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Блок для flash-сообщений -->
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div class="flash-messages">
+        {% for category, message in messages %}
+          <div class="flash-message flash-{{ category }}">
+            {{ message }}
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  {% block body %}
+  {% endblock %}
+
+  {% block footer %}
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">Exon Build</div>
+      <div class="footer-links">
+        <a href="{{ url_for('index') }}">Главная</a>
+        <a href="{{ url_for('about') }}">О нас</a>
+        <a href="{{ url_for('submit') }}">Услуги</a>
+        <a href="#contact">Контакты</a>
+      </div>
+      <div class="footer-social">
+        <a href="https://t.me/Awa1ken"><i class="icon">📱</i> Telegram</a>
+        <a href="{{ url_for('index') }}"><i class="icon">💼</i>Exon Build</a>
+      </div>
+    </div>
+    <p class="copyright">&copy; 2025 Exon Build — Все права защищены</p>
+  </footer>
+  {% endblock %}
+</body>
+</html>

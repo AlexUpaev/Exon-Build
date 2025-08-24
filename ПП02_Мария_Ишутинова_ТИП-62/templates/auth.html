@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Вход и регистрация
+{% endblock %}
+
+{% block body %}
+  <main class="section">
+    <h2>Вход и регистрация</h2>
+
+    <div class="auth-container">
+      <!-- Форма входа -->
+      <form class="auth-form" method="POST" action="{{ url_for('auth') }}">
+        <h3>Вход</h3>
+        <input type="text" name="login" placeholder="Логин" required>
+        <input type="password" name="password" placeholder="Пароль" required>
+        <button type="submit">Войти</button>
+      </form>
+
+      <!-- Форма регистрации -->
+      <form class="auth-form" method="POST" action="{{ url_for('auth') }}">
+        <h3>Регистрация</h3>
+
+        <!-- Основные поля -->
+        <input type="text" name="full_name" placeholder="Полное ФИО" maxlength="100" required>
+        <input type="text" name="login" placeholder="Логин" required>
+        <input type="password" name="password" placeholder="Пароль" required>
+
+        <!-- Выбор роли -->
+        <div class="exon-role-selector">
+          <label class="exon-role-label">Роль:</label>
+          <div class="exon-role-options">
+            <label class="exon-role-option">
+              <input type="radio" name="role" value="Пользователь" checked>
+              <span class="exon-role-button">Пользователь</span>
+            </label>
+            <label class="exon-role-option">
+              <input type="radio" name="role" value="Администратор">
+              <span class="exon-role-button">Администратор</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Скрытое поле для interaction -->
+        <input type="hidden" name="interaction" value="false">
+
+        <button type="submit">Зарегистрироваться</button>
+      </form>
+    </div>
+  </main>
+{% endblock %}
+{% block footer %}
+{% endblock %}

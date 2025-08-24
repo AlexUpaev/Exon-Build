@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Подача заявки
+{% endblock %}
+
+{% block body %}
+  <main class="section">
+    <h2>Подача заявки</h2>
+    <form class="form" id="projectForm">
+      <!-- Обязательные поля из модели -->
+      <input type="text" name="project_title" placeholder="Заголовок проекта*" required maxlength="255">
+      <input type="text" name="company_name" placeholder="Название компании*" required maxlength="255">
+      <textarea name="description" placeholder="Описание проекта*" required></textarea>
+      <input type="number" name="budget" placeholder="Бюджет (₽)*" required step="0.01" min="0">
+      <input type="date" name="deadline" placeholder="Срок выполнения*" required>
+
+      <!-- Поле статуса не нужно в форме - оно будет установлено автоматически -->
+
+      <!-- Скрытое поле для user_id (должно заполняться сервером после аутентификации) -->
+      <input type="hidden" name="user_id" value="">
+
+      <button type="submit">Отправить заявку</button>
+    </form>
+  </main>
+{% endblock %}
+{% block footer %}
+{% endblock %}
